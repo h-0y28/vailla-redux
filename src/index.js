@@ -15,7 +15,7 @@ const countmodifier = (count = 0, action) => {
 const countStore = legacy_createStore(countmodifier);
 
 countStore.dispatch({ type: "ADD" }); // dispatch: message를 전송하는 방법
-countStore.dispatch({ type: "ADD" });
+countStore.dispatch({ type: "ADD" }); // {type: "ADD"} : message
 countStore.dispatch({ type: "ADD" });
 countStore.dispatch({ type: "ADD" });
 countStore.dispatch({ type: "ADD" });
