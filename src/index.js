@@ -4,9 +4,7 @@ const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
-// action: 전송받은 message저장
 const countmodifier = (count = 0, action) => {
-  console.log(action); // 처음으로i intialized된 function출력
   if (action.type === "ADD") return count + 1;
   else if (action.type === "MINUS") return count - 1;
   else return count;
@@ -14,11 +12,21 @@ const countmodifier = (count = 0, action) => {
 
 const countStore = legacy_createStore(countmodifier);
 
-countStore.dispatch({ type: "ADD" }); // dispatch: message를 전송하는 방법
-countStore.dispatch({ type: "ADD" }); // {type: "ADD"} : message
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "MINUS" });
+// store에 변화가 있을 떄마다 감지하여 불려짐
+const onChange = () => {
+  // console.log(countStore.getState());
+  number.innerText = countStore.getState();
+};
 
-console.log(countStore.getState());
+countStore.subscribe(onChange);
+
+const handleAdd = () => {
+  countStore.dispatch({ type: "ADD" });
+};
+
+const handleMinus = () => {
+  countStore.dispatch({ type: "MINUS" });
+};
+
+add.addEventListener("click", handleAdd);
+minus.addEventListener("click", handleMinus);
